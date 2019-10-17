@@ -1,0 +1,57 @@
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-atom" >
+  <p style="font-size: 24px; color: white">Please wait...</p>
+</ngx-spinner>
+<div class="content">
+    <h2>Courses</h2>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <a mat-raised-button routerLink="/course-edit" style="float: right" color="primary">Add a Course</a>
+  <div class="mat-elevation-z8">
+      <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+          <ng-container matColumnDef="CourseId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Id</th>
+          <td mat-cell *matCellDef="let row">{{row.CourseId}}</td>
+        </ng-container>
+    
+        <!-- AuthorName Column -->
+        <ng-container matColumnDef="AuthorName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Author Name</th>
+          <td mat-cell *matCellDef="let row">{{row.AuthorName}}</td>
+        </ng-container>
+    
+        <!-- Title Column -->
+        <ng-container matColumnDef="Title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+            <td mat-cell *matCellDef="let row">{{row.Title}}</td>
+          </ng-container>
+    
+        <!-- CourseLength Column -->
+        <ng-container matColumnDef="CourseLength">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Length</th>
+            <td mat-cell *matCellDef="let row">{{row.CourseLength}}</td>
+          </ng-container>
+    
+        <!-- Category Column -->
+        <ng-container matColumnDef="Category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+            <td mat-cell *matCellDef="let row">{{row.Category}}</td>
+          </ng-container>
+    
+        <!-- CourseDate Column -->
+        <ng-container matColumnDef="CourseDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Date</th>
+          <td mat-cell *matCellDef="let row">{{row.CourseDate | date:"MM/dd/yyyy"}}</td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" [ngClass]="{ 'selected': row === selectedRow }"></tr>
+  </table>
+          
+  <mat-paginator #paginator showFirstLastButtons
+      [length]="dataSource.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10, 25, 50, 100, 250]">
+  </mat-paginator>
+</div>

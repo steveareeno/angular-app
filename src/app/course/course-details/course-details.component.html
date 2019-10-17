@@ -1,0 +1,29 @@
+<div *ngIf="courseForm" class="form-container">
+  <h2>Course Details</h2>
+  <!-- {{ courseForm.value | json }} -->
+  <form [formGroup]="courseForm">
+    <mat-form-field>
+      <input matInput placeholder="Course ID" formControlName="CourseId">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Author Name" formControlName="AuthorName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Course Title" formControlName="Title" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Course Length" formControlName="CourseLength">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Category" formControlName="Category">
+    </mat-form-field>
+    <mat-form-field>
+      <label class="viewOnlyText" placeholder="Course Date">{{ courseForm.get('CourseDate').value | date:"MM/dd/yyyy" }}</label>
+      <input hidden matInput placeholder="Course Date" formControlName="CourseDate">
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-raised-button color="primary" *ngIf="!this.courseForm.enabled" (click)="editOnClick()">Edit</button>
+      <a mat-raised-button routerLink="/course-datatable">Cancel</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,61 @@
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-atom" >
+  <p style="font-size: 24px; color: white">Please wait...</p>
+</ngx-spinner>
+<div class="content">
+  <h2>Authors</h2>
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <button mat-raised-button style="float: right" color="primary" type="button" (click)="addAuthor()">Add an Author</button>
+  <div class="mat-elevation-z8">
+      <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+         <!-- Edit Column -->
+         <ng-container matColumnDef="Edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <i class="material-icons" title="Edit this author" (click)="editOnClick(row.AuthorId)" [ngStyle]="{'color': '#3498db'}">edit</i>              
+          </td>
+        </ng-container>
+        <!-- AuthorId Column -->
+        <ng-container matColumnDef="AuthorId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Author Id</th>
+          <td mat-cell *matCellDef="let row">{{row.AuthorId}}</td>
+        </ng-container>
+    
+        <!-- FirstName Column -->
+        <ng-container matColumnDef="FirstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+            <td mat-cell *matCellDef="let row">{{row.FirstName}}</td>
+          </ng-container>
+    
+        <!-- LastName Column -->
+        <ng-container matColumnDef="LastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+          <td mat-cell *matCellDef="let row">{{row.LastName}}</td>
+        </ng-container>
+
+        <!-- CompanyName Column -->
+        <ng-container matColumnDef="CompanyName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</th>
+          <td mat-cell *matCellDef="let row">{{row.CompanyName}}</td>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="Delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+              <i class="material-icons" title="Delete this author" (click)="onDeleteClick(row.AuthorId)" [ngStyle]="{'color': '#FF0000'}">delete_forever</i>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'selected': row === selectedRow }"></tr>
+  </table>
+          
+  <mat-paginator #paginator showFirstLastButtons
+      [length]="dataSource.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10, 25, 50, 100, 250]">
+  </mat-paginator>
+</div>

@@ -1,0 +1,19 @@
+<div *ngIf="authorForm" class="form-container">
+  <h2>Author Details</h2>
+  <!-- {{ authorForm.value | json }} -->
+  <form [formGroup]="authorForm">
+    <mat-form-field>
+      <input matInput placeholder="Author ID" formControlName="AuthorId">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="FirstName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="LastName">
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="editOnClick()">Edit</button>
+      <a mat-raised-button routerLink="/author-datatable">Cancel</a>
+    </div>
+  </form>
+</div>

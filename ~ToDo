@@ -1,0 +1,53 @@
+.....................................................................................
+Pending
+.....................................................................................
+Filter input on list views are as wide as page
+
+Placement of Add button on list views is messed up
+
+Author dialog scrolling right to left
+
+Design author dialog edit to be similar to course edit 
+
+Company edit view to be same as course
+
+Author typeahead is displaying the ID (Author ID) instead of the value (author name). Maybe display author name in separate control on author edit form. When new course, 
+author name should populate on selection from auto complete. Existing should be from the database.
+
+Load data value in control from ajax call. Could be used to get author name above
+
+Add spinner to any save, get, or delete operations
+
+Sort dates in courses table?
+
+Authentication/authorization
+
+Partial views with child/parent data. Need to implement component. Possibly use tabs
+
+After updating an author item in a dialog, the list is not refreshing
+
+Double-click table row to open item or use row click
+
+Hide/show menu in a drawer
+
+Cascade dropdowns
+
+Connection failure error message
+
+How to implement dual modal dialogs
+
+
+
+
+.....................................................................................
+Completed
+.....................................................................................
+Drop down list example
+Format dates in views
+confirm dialog
+spinner control
+Example for Author edit modal dialog, link/material icon in table
+
+NOTE: ngx-toastr VERSION 10.2.0 is not working with Angualr 9. No content displays in the popup. There is an open incident on github:
+https://github.com/scttcper/ngx-toastr/issues/709
+Error: emplate error: Can't bind to 'ngIf' since it isn't a known property of 'div'

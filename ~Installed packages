@@ -1,0 +1,16 @@
+******************************************
+Installed sources
+******************************************
+
+Angular: 7.1.0
+
+Toastr notifications: 9.1.1
+https://www.npmjs.com/package/ngx-toastr
+
+Material Design for Angular: 7.1.1
+https://material.angular.io/
+
+Spinner component (ngx spinner): 6.1.2
+https://www.npmjs.com/package/ngx-spinner
+This page has the spinner types:
+https://napster2210.github.io/ngx-spinner/

@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+
+<mat-dialog-content>
+  <div *ngIf="authorForm" class="form-container">
+    <form [formGroup]="authorForm" (ngSubmit)="onSubmit(authorForm.value)">
+      <mat-form-field [style.display]="authorForm.value['IsNew'] == true ? 'none' : 'block'">
+        <input matInput placeholder="Author ID" formControlName="AuthorId" readonly class="viewOnlyText">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="First Name" formControlName="FirstName">
+        <mat-error *ngIf="(authorForm.get('FirstName').dirty || authorForm.get('FirstName').touched)">
+          <div *ngIf="authorForm.get('FirstName').hasError('required')">
+            First Name is required
+          </div>
+          <div *ngIf="authorForm.get('FirstName').hasError('minlength')">
+            First Name must be at least 2 characters
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Last Name" formControlName="LastName">
+        <mat-error *ngIf="(authorForm.get('LastName').dirty || authorForm.get('LastName').touched)">
+          <div *ngIf="authorForm.get('LastName').hasError('required')">
+            Last Name is required
+          </div>
+          <div *ngIf="authorForm.get('LastName').hasError('minlength')">
+            Last Name must be at least 2 characters
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="CompanyId" placeholder="Company" [compareWith]="compareFn">
+          <mat-option>None</mat-option>
+          <ng-container *ngFor="let company of companies">
+            <mat-option [value]="company.CompanyId">{{company.CompanyName}}</mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="(authorForm.get('CompanyId').dirty || authorForm.get('CompanyId').touched)">
+          <div *ngIf="authorForm.get('CompanyId').hasError('required')">
+            Company Name is required
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" *ngIf="this.authorForm && !this.authorForm.enabled" type="button" (click)="editOnClick()">Edit</button>
+  <button mat-button *ngIf="this.authorForm && this.authorForm.enabled" (click)="onCancelEditClick()">Cancel Edit</button>
+  <button mat-button color="primary" *ngIf="this.authorForm && this.authorForm.enabled" type="submit">Save</button>
+  <button mat-button id="no-button" cdkFocusInitial [mat-dialog-close]='false'>Close</button>
+</mat-dialog-actions>

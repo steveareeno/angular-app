@@ -1,0 +1,34 @@
+<div *ngIf="companyForm" class="form-container">
+  <h2>{{ companyForm.value["IsNew"] == true ? "Add a Company" : companyForm.value["IsEdit"] == true ? "Edit Company" : "Company Details" }}</h2>
+  <form [formGroup]="companyForm" (ngSubmit)="onSubmit(companyForm.value)">
+    <div class="form-display" *ngIf="!companyForm.controls.IsEdit.value && !companyForm.controls.IsNew.value">
+      <div class="form-display-label">Course Id</div>
+      <div>{{companyForm.value["CourseId"]}}</div>
+    </div>
+    <mat-form-field *ngIf="companyForm.controls.IsEdit.value || companyForm.controls.IsNew.value">
+      <input matInput placeholder="Company Name" formControlName="CompanyName">
+      <mat-error *ngIf="(companyForm.get('CompanyName').dirty || companyForm.get('CompanyName').touched)">
+        <div *ngIf="companyForm.get('CompanyName').hasError('required')">
+          Company Name is required
+        </div>
+        <div *ngIf="companyForm.get('CompanyName').hasError('minlength')">
+          Company Name must be at least 4 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-raised-button color="primary" *ngIf="this.companyForm && !companyForm.controls.IsEdit.value && !companyForm.controls.IsNew.value" type="button" (click)="editOnClick()">Edit</button>
+      <button mat-raised-button color="primary" *ngIf="this.companyForm && (companyForm.controls.IsEdit.value || companyForm.controls.IsNew.value)" type="submit">Save</button>
+      <button mat-raised-button *ngIf="this.companyForm && companyForm.controls.IsEdit.value" (click)="onCancelEditClick()">Cancel Edit</button>
+      <a mat-raised-button *ngIf="this.companyForm && !companyForm.controls.IsEdit.value"  routerLink="/course-datatable">Close</a>
+      <button style="float: right;" mat-raised-button color="warn" *ngIf="this.companyForm && companyForm.controls.IsEdit.value" type="button" (click)="onDeleteClick()">Delete</button>
+    </div>
+<!-- 
+    <div class="button-row">
+      <button mat-raised-button color="primary" *ngIf="this.companyForm && !this.companyForm.enabled" type="button" (click)="editOnClick()">Edit</button>
+      <button mat-raised-button color="primary" *ngIf="this.companyForm && this.companyForm.enabled" type="submit">Save</button>
+      <button mat-raised-button color="warn" *ngIf="this.companyForm && !companyForm.value['IsNew']" type="button" (click)="onDeleteClick()">Delete</button>
+      <a mat-raised-button routerLink="/company-datatable">Cancel</a>
+    </div> -->
+  </form>
+</div>

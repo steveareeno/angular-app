@@ -1,0 +1,39 @@
+<div *ngIf="authorForm" class="form-container">
+  <h2>{{ authorForm.value["IsNew"] == true ? "Add" : "Edit" }} an Author</h2>
+  <!-- {{ authorForm.value | json }} -->
+  <form [formGroup]="authorForm" (ngSubmit)="onSubmit(authorForm.value)">
+    <mat-form-field [style.display]="authorForm.value['IsNew'] == true ? 'none' : 'block'">
+      <input matInput placeholder="Author ID" formControlName="AuthorId" readonly class="viewOnlyText">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="FirstName">
+      <mat-error *ngIf="(authorForm.get('FirstName').dirty || authorForm.get('FirstName').touched)">
+        <div *ngIf="authorForm.get('FirstName').hasError('required')">
+          First Name is required
+        </div>
+        <div *ngIf="authorForm.get('FirstName').hasError('minlength')">
+          First Name must be at least 2 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="LastName">
+      <mat-hint>This is a hint for last name</mat-hint>
+      <mat-error *ngIf="(authorForm.get('LastName').dirty || authorForm.get('LastName').touched)">
+        <div *ngIf="authorForm.get('LastName').hasError('required')">
+          Last Name is required
+        </div>
+        <div *ngIf="authorForm.get('LastName').hasError('minlength')">
+            Last Name must be at least 2 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-raised-button color="primary" *ngIf="this.authorForm && !this.authorForm.enabled" type="button" (click)="editOnClick()">Edit</button>
+      <button mat-raised-button color="primary" *ngIf="this.authorForm && this.authorForm.enabled" type="submit">Save</button>
+      <button mat-raised-button color="warn" *ngIf="this.authorForm && !authorForm.value['IsNew']" type="button" (click)="onDeleteClick()">Delete</button>
+      <button mat-raised-button *ngIf="this.authorForm && this.authorForm.enabled" (click)="onCancelEditClick()">Cancel Edit</button>
+      <a mat-raised-button *ngIf="this.authorForm && !this.coursauthorFormForm.enabled"  routerLink="/author-datatable">Cancel</a>
+    </div>
+  </form>
+</div>

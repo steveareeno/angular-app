@@ -1,0 +1,13 @@
+src/main.ts
+the script file used by angular CLI as the entry point to the application. References the AppModule (see app.module.ts)               
+
+src/app/app.module.ts
+the root module of the app. This module loads all the global dependencies (imports), 
+sets the starup component, declares componenets that are dynamically loded, etc.
+
+src/app/app.component.ts
+this component is not required. It is created as a default component because at least one component is required to initiate an app
+
+src/app/app-routing.module.ts
+establishes all the application routing and provides a service 
+for accessing and using routes in components

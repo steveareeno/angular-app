@@ -1,0 +1,29 @@
+table {
+  width: 100%;
+}
+
+th {
+  background-color: #3498db;
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* tr:nth-child(even){background-color: #f2f2f2;} */
+
+tr:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.table-container {
+  height: 600px;
+  overflow: auto;
+}
+
+.hide {
+  display: none;
+}
+
+.selected {
+  background: rgb(62, 255, 72);
+}

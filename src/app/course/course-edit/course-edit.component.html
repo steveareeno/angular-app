@@ -1,0 +1,116 @@
+<!-- the form-display div toggles the controls between edit and details -->
+
+<div *ngIf="courseForm" class="form-container" [style.backgroundColor]="courseForm.value['IsEdit'] == true || courseForm.value['IsNew'] == true ? '#fff' : ''">
+  <h2>{{ courseForm.value["IsNew"] == true ? "Add a Course" : courseForm.value["IsEdit"] == true ? "Edit Course" : "Course Details" }}</h2>
+  <!-- {{ courseForm.value | json }} -->
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit(courseForm.value)">
+    <!-- <mat-form-field [style.display]="courseForm.value['IsNew'] == true ? 'none' : 'block'">
+      <input matInput placeholder="Course ID" formControlName="CourseId" readonly class="viewOnlyText">
+    </mat-form-field> -->
+    <!-- CourseId -->
+    <div class="form-display" *ngIf="!courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value">
+      <div class="form-display-label">Course Id</div>
+      <div>{{courseForm.value["CourseId"]}}</div>
+    </div>
+    <!-- AuthorId -->
+    <mat-form-field *ngIf="courseForm.controls.IsEdit.value || courseForm.controls.IsNew.value">
+      <!-- <mat-select formControlName="AuthorId" placeholder="Author">
+        <mat-option>None</mat-option>
+        <ng-container *ngFor="let author of authors">
+          <mat-option value="{{author.AuthorId}}">{{author.value}}</mat-option>
+        </ng-container>
+      </mat-select> -->
+      <input type="text" placeholder="Author" aria-label="Number" matInput formControlName="AuthorId" [matAutocomplete]="auto">
+      <!-- <input type="text" placeholder="Author" matInput formControlName="AuthorName"> -->
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let author of authors" [value]="author.AuthorId">
+          {{author.FirstName + " " + author.LastName}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="(courseForm.get('AuthorId').dirty || courseForm.get('AuthorId').touched)">
+        <div *ngIf="courseForm.get('AuthorId').hasError('required')">
+          Author is required
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-display" *ngIf="!courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value">
+      <div class="form-display-label">Author</div>
+      <div>{{courseForm.value["AuthorId"]}}</div>
+    </div>
+    <!-- Title -->
+    <mat-form-field *ngIf="courseForm.controls.IsEdit.value || courseForm.controls.IsNew.value">
+      <input matInput placeholder="Course Title" formControlName="Title">
+      <mat-error *ngIf="(courseForm.get('Title').dirty || courseForm.get('Title').touched)">
+        <div *ngIf="courseForm.get('Title').hasError('required')">
+          Title is required
+        </div>
+        <div *ngIf="courseForm.get('Title').hasError('minlength')">
+          Title must be at least 4 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-display" *ngIf="!courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value">
+      <div class="form-display-label">Title</div>
+      <div>{{courseForm.value["Title"]}}</div>
+    </div>
+    <!-- CourseLength -->
+    <mat-form-field *ngIf="courseForm.controls.IsEdit.value || courseForm.controls.IsNew.value">
+      <input matInput placeholder="Course Length" formControlName="CourseLength">
+      <mat-hint>This is a hint for course length</mat-hint>
+      <mat-error *ngIf="(courseForm.get('CourseLength').dirty || courseForm.get('CourseLength').touched)">
+        <div *ngIf="courseForm.get('CourseLength').hasError('required')">
+          Course Length is required
+        </div>
+        <div *ngIf="courseForm.get('CourseLength').hasError('minlength')">
+          Course Length must be at least 2 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-display" *ngIf="!courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value">
+      <div class="form-display-label">Course Length</div>
+      <div>{{courseForm.value["CourseLength"]}}</div>
+    </div>
+    <!-- Category -->
+    <mat-form-field *ngIf="courseForm.controls.IsEdit.value || courseForm.controls.IsNew.value">
+      <input matInput placeholder="Category" formControlName="Category">
+      <mat-error *ngIf="(courseForm.get('Category').dirty || courseForm.get('Category').touched)">
+        <div *ngIf="courseForm.get('Category').hasError('required')">
+          Category is required
+        </div>
+        <div *ngIf="courseForm.get('Category').hasError('minlength')">
+          Category must be at least 4 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-display" *ngIf="!courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value">
+      <div class="form-display-label">Category</div>
+      <div>{{courseForm.value["Category"]}}</div>
+    </div>
+    <!-- CourseDate -->
+    <mat-form-field *ngIf="courseForm.controls.IsEdit.value || courseForm.controls.IsNew.value">
+      <input matInput [matDatepicker]="picker" placeholder="Course Date" formControlName="CourseDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="(courseForm.get('CourseDate').dirty || courseForm.get('CourseDate').touched)">
+        <div *ngIf="courseForm.get('CourseDate').hasError('invalidDate')">
+          Course Date is invalid
+        </div>
+        <div *ngIf="courseForm.get('CourseDate').hasError('required')">
+          Course Date is required
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-display" *ngIf="!courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value">
+      <div class="form-display-label">Course Date</div>
+      <div>{{courseForm.value["CourseDate"]}}</div>
+    </div>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" *ngIf="this.courseForm && !courseForm.controls.IsEdit.value && !courseForm.controls.IsNew.value" type="button" (click)="editOnClick()">Edit</button>
+      <button mat-raised-button color="primary" *ngIf="this.courseForm && (courseForm.controls.IsEdit.value || courseForm.controls.IsNew.value)" type="submit">Save</button>
+      <button mat-raised-button *ngIf="this.courseForm && courseForm.controls.IsEdit.value" (click)="onCancelEditClick()">Cancel Edit</button>
+      <a mat-raised-button *ngIf="this.courseForm && !courseForm.controls.IsEdit.value"  routerLink="/course-datatable">Close</a>
+      <button style="float: right;" mat-raised-button color="warn" *ngIf="this.courseForm && courseForm.controls.IsEdit.value" type="button" (click)="onDeleteClick()">Delete</button>
+    </div>
+  </form>
+</div>
